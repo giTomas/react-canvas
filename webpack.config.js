@@ -54,14 +54,14 @@ const config = {
             loader: "babel-loader",
             options: {
               cacheDirectory: true,
-              presets: [
-                        ["es2015", {"modules": false}],
-                        "react",
-                        "stage-0",
-                        "stage-1",
-                        "stage-3"
-                        ],
-              plugins: ["transform-decorators-legacy"]
+              // presets: [
+              //           ["es2015", {"modules": false}],
+              //           "react",
+              //           "stage-0",
+              //           "stage-1",
+              //           "stage-3"
+              //           ],
+              // plugins: ["transform-decorators-legacy"]
               }
             }],
         },
