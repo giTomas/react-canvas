@@ -1,55 +1,55 @@
 import React from 'react';
 
-const randomHex = () => (
-  `#${Math.floor(Math.random() * 16777215).toString(16)}`
-);
+// const randomHex = () => (
+//   `#${Math.floor(Math.random() * 16777215).toString(16)}`
+// );
+//
+// const randomRgba = () => (
+//   `rgba(${Math.floor(Math.random() * 128).toString()},${Math.floor(Math.random() * 128).toString()},${Math.floor(Math.random() * 128).toString()},${Math.round(((Math.random() * 0.9) + 0.05) * 100) / 100})`
+// );
+//
+// const thinger = (zr, zi, cr, ci, iterations) => {
+//   if (iterations > 10) {
+//     return;
+//   }
+//   let nextr = (zr * zr) - (zi * zi) + cr;
+//   let nexti = ((zr * zi) * 2) + ci;
+//   console.log([nextr, nexti]);
+//   if (Math.pow(nextr, 2) + Math.pow(nexti, 2) > 4) {
+//     return false;
+//   }
+//   return thinger(nextr, nexti, cr, ci, iterations += 1);
+// };
 
-const randomRgba = () => (
-  `rgba(${Math.floor(Math.random() * 128).toString()},${Math.floor(Math.random() * 128).toString()},${Math.floor(Math.random() * 128).toString()},${Math.round(((Math.random() * 0.9) + 0.05) * 100) / 100})`
-);
-
-const thinger = (zr, zi, cr, ci, iterations) => {
-  if (iterations > 10) {
-    return;
-  }
-  let nextr = (zr * zr) - (zi * zi) + cr;
-  let nexti = ((zr * zi) * 2) + ci;
-  console.log([nextr, nexti]);
-  if (Math.pow(nextr, 2) + Math.pow(nexti, 2) > 4) {
-    return false;
-  }
-  return thinger(nextr, nexti, cr, ci, iterations += 1);
-};
-
-const isMandelbrot2 = (cr, ci) => {
-  let zr = cr;
-  let zi = ci;
-
-  for (let i = 0; i < 100; i += 1) {
-    if (zr**2 + zi**2 > 4) {
-      return false;
-    }
-    newzr = (zr * zr) - (zi * zi) + cr;
-    newzi = ((zr * zi) * 2) + ci;
-    zr = newzr;
-    zi = newzi;
-  }
-
-  return true;
-};
+// const isMandelbrot2 = (cr, ci) => {
+//   let zr = cr;
+//   let zi = ci;
+//
+//   for (let i = 0; i < 100; i += 1) {
+//     if (zr**2 + zi**2 > 4) {
+//       return false;
+//     }
+//     newzr = (zr * zr) - (zi * zi) + cr;
+//     newzi = ((zr * zi) * 2) + ci;
+//     zr = newzr;
+//     zi = newzi;
+//   }
+//
+//   return true;
+// };
 
 const isMandelbrot = (coord) => {
-  let cr = coord.x;
-  let ci = coord.y;
+  const cr = coord.x;
+  const ci = coord.y;
   let zr = cr;
   let zi = ci;
 
   for (let i = 0; i < 100; i += 1) {
-    if (zr**2 + zi**2 > 4) {
+    if ((zr ** 2) + (zi ** 2) > 4) {
       return false;
     }
-    let newzr = (zr * zr) - (zi * zi) + cr;
-    let newzi = ((zr * zi) * 2) + ci;
+    const newzr = ((zr * zr) - (zi * zi)) + cr;
+    const newzi = ((zr * zi) * 2) + ci;
     zr = newzr;
     zi = newzi;
   }
@@ -57,14 +57,14 @@ const isMandelbrot = (coord) => {
   return true;
 };
 
-const thinger1 = (z, c, i) => {
-  if (i > 10) {
-    return;
-  }
-  const next = Math.pow(z, 2) + c;
-  console.log(next)
-  return thinger(next, c, i += 1);
-};
+// const thinger1 = (z, c, i) => {
+//   if (i > 10) {
+//     return;
+//   }
+//   const next = Math.pow(z, 2) + c;
+//   console.log(next)
+//   return thinger(next, c, i += 1);
+// };
 
 // const indexToCoord = (index, context) => {
 //   const {height, width} = context;
@@ -90,21 +90,21 @@ function Graph(canvas) {
     x: 0,
     y: 0,
   };
-  const indexToCoord = function (index) {
+  const indexToCoord = (index) => {
     const ix = index / 4;
     const coord = {
       x: ix % canvas.width,
       y: Math.floor(ix / canvas.width),
-    }
-    coord.x = (((coord.x * this.r / canvas.width) - this.r / 2) + (this.center.x * aspectRatio)) / aspectRatio;
-    coord.y =((((coord.y * this.r / canvas.height) - this.r / 2) * -1) + this.center.y);
+    };
+    coord.x = ((((coord.x * this.r) / canvas.width) - (this.r / 2)) + (this.center.x * aspectRatio)) / aspectRatio;
+    coord.y = (((((coord.y * this.r) / canvas.height) - (this.r / 2)) * -1) + this.center.y);
     return coord;
-  }.bind(this);
+  };
 
 
-  this.render = function(predicate) {
+  this.render = function render(predicate) {
     for (let i = 0; i < canvas.width * canvas.height * 4; i += 4) {
-      let set = predicate(indexToCoord(i)) ? 255 : 0;
+      const set = predicate(indexToCoord(i)) ? 255 : 0;
       imageData.data[i] = 0;
       imageData.data[i + 1] = 0;
       imageData.data[i + 2] = 0;
@@ -179,7 +179,7 @@ class App extends React.Component {
     const graph3 = new Graph(this.cnvData3);
     graph3.r = 500;
     graph3.render(coord => (
-      coord.x > 100 && coord.y > - 27
+      coord.x > 100 && coord.y > -27
     ));
 
     const graph4 = new Graph(this.mandelbrot);
@@ -190,7 +190,7 @@ class App extends React.Component {
     graph5.center = {
       x: -0.7463,
       y: -0.1102,
-    }
+    };
     graph5.r = 0.005;
     graph5.render(isMandelbrot);
 
@@ -198,7 +198,7 @@ class App extends React.Component {
     graph6.center = {
       x: -0.7453,
       y: -0.1127,
-    }
+    };
     graph6.r = 0.00065;
     graph6.render(isMandelbrot);
 
@@ -206,7 +206,7 @@ class App extends React.Component {
     graph7.center = {
       x: -1.25066,
       y: 0.02012,
-    }
+    };
     graph7.r = 0.0005;
     graph7.render(isMandelbrot);
 
@@ -214,7 +214,7 @@ class App extends React.Component {
     graph8.center = {
       x: -0.16,
       y: 1.0405,
-    }
+    };
     graph8.r = 0.046;
     graph8.render(isMandelbrot);
   }
